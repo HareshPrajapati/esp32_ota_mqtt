@@ -19,6 +19,7 @@ void mqtt_callback(char *topic, byte *payload, unsigned int length) {
 	// Serial.println();
 	if(_topic.equals(UPDATE_CANCEL_TOPIC) == 1 && response.equals(CANCEL_MSG)) {
 		if(Update.isRunning()) {
+			Serial.println("Update cancelled");
 			Update.abort();
 			mqtt.publish(UPDATE_RESPONSE_TOPIC, CANCEL_OK_RES);
 		} else {
@@ -109,6 +110,7 @@ static void mqtt_ota_loop(void *parameter) {
 	mqtt.setServer(MQTT_SERVER, MQTT_PORT);
     mqtt.setBufferSize(4096);
     mqtt.setCallback(mqtt_callback);
+	mqtt.setKeepAlive(60);
 
 	while (1) {
 		if (!mqtt.connected()) {
@@ -120,7 +122,9 @@ static void mqtt_ota_loop(void *parameter) {
 			delay(5000);
 			ESP.restart();
 		}
+		vTaskDelay(pdMS_TO_TICKS(3));
 	}
+
 }
 
 void start_mqtt_ota_task() {
