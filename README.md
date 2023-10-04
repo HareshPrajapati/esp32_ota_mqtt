@@ -102,12 +102,12 @@ Before you begin, make sure you have the following:
 
 ### Running the GUI Application
 
-1. Navigate to the directory where the `mqtt_gui.py` file is located ( i have attache `mqtt_gui.py` with this project).
+1. Navigate to the directory where the `mqtt_app_gui.py` file is located ( i have attache `mqtt_app_gui.py` with this project).
 
 2. Run the script:
 
    ```bash
-   python mqtt_gui.py
+   python mqtt_app_gui.py
    ```
 
 3. The GUI application will launch. You will see fields for MQTT server IP and port, a "Connect to MQTT Server" button, and the ability to interact with switches, brightness controls, color pickers, and the OTA update feature.
