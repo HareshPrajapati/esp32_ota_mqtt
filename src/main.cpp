@@ -6,5 +6,10 @@ void setup() {
 }
 
 void loop() {
-    // Serial.println("Hello mahesh");
+    if(toggle_led) {
+        digitalWrite(5,!digitalRead(5));
+        delay(led_delay);
+    }
+    // Serial.println("Hello");
+    // delay(1000);
 }

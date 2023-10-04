@@ -39,10 +39,10 @@ You can verify that the Mosquitto Broker is running by opening a Command Prompt 
 ```
 mosquitto_sub -h localhost -t test/topic
 ```
+
 If the Mosquitto Broker is running, you should see this command waiting for incoming messages on the `test/topic` MQTT topic.
 
 You have now successfully started the Mosquitto Broker on your Windows machine. You can use it for MQTT-based messaging and IoT applications. Remember that you can install and use MQTT client libraries like Paho MQTT in Python to create MQTT clients that interact with the broker.
-
 
 ## Building and Uploading `esp32_ota_mqtt` Project with PlatformIO in Visual Studio Code
 
@@ -56,7 +56,7 @@ Before you begin, make sure you have the following:
 ### Getting Started
 
 1. **Open Your Project**: Open `esp32_ota_mqtt` project folder in Visual Studio Code. Open `platformio.ini` file and modify `upload_port` and `monitor_port` according to your board port, you can check your port number from `device manager`
-2. **Change credentials** : 
+2. **Change credentials** :
    - Open `defines.h` file (it's located in **esp32_ota_mqtt/include/defines.h**)
    - Change `WIFI_SSID` with your WiFi name
    - Change `WIFI_PASS` with your WiFi password
@@ -67,3 +67,78 @@ Before you begin, make sure you have the following:
 4. **Upload**: Click on the `Upload` icon to flash the compiled code onto your target board.
 5. **Serial Monitor (Optional)**: Click on the `Serial Monitor` icon to open the serial monitor and interact with your board.
 6. **Run Your Code**: Your code is now running on your embedded device!
+7. Connect **LED** to `pin 5` of Esp32 if you want to control `LED`
+8. Connect **RGB** to `pin 4` of Esp32 if you want to control `RGB LED`
+
+## Test using Python GUI
+
+### Prerequisites
+
+1. You need to have Python installed on your system.
+
+2. Ensure you have the required Python libraries installed. You can install them using pip:
+
+   ```bash
+   pip install paho-mqtt
+   ```
+
+3. Ensure that you have the `tkinter` library installed. This library is typically included with standard Python installations. However, if you don't have it, you can check and install it as follows:
+
+   - **Linux**:
+
+     ```bash
+     sudo apt-get install python3-tk
+     ```
+
+   - **Windows**: No extra installation is required; `tkinter` is bundled with Python on Windows.
+
+   - **macOS**:
+
+     ```bash
+     brew install python-tk
+     ```
+
+4. Prepare a .bin firmware file if you want to use the OTA (Over-The-Air) update feature. This is optional, and you can skip it if you don't have a .bin file.
+
+### Running the GUI Application
+
+1. Navigate to the directory where the `mqtt_gui.py` file is located ( i have attache `mqtt_gui.py` with this project).
+
+2. Run the script:
+
+   ```bash
+   python mqtt_gui.py
+   ```
+
+3. The GUI application will launch. You will see fields for MQTT server IP and port, a "Connect to MQTT Server" button, and the ability to interact with switches, brightness controls, color pickers, and the OTA update feature.
+
+### Testing the GUI
+
+Here's how you can test the GUI features:
+
+1. **Connect to MQTT Server**:
+   ![image1](https://imgur.com/qaELync.png)
+   - Enter the MQTT server's IP (**If you are using local Mosquitto Broker than it will be your PC IP address**) and port.
+   - Click the "Connect to MQTT Server" button to establish a connection. If successful, you'll receive a success message. Otherwise, you'll be notified of connection issues.
+
+2. **Toggle the Switch**:
+   - Press the "Toggle Switch" button to send an MQTT message to turn the switch on and off.
+
+3. **Color Picker**:
+   - Click "Pick a Color" to open a color picker. Select a color, and it will be sent as an MQTT message.
+
+4. **Brightness Control**:
+   - Use the slider to adjust the brightness. The brightness value is sent as an MQTT message.
+
+5. **OTA Update** (Optional):
+   - Prepare a .bin firmware file.
+   - Click "OTA Update" to start the firmware update process.
+   - A progress window will appear showing the update progress. You can cancel the update if needed.
+
+6. **Closing the App**:
+   - To close the application, click the close button on the GUI window, and the app will perform cleanup actions like turning off the switch and disconnecting from the MQTT server.
+
+### Application Demo:
+
+![image2](https://imgur.com/SCj17si.png)
+This is how you can test the provided Python GUI for MQTT communication, switch control, color picking, brightness control, and, optionally, OTA firmware updates.
